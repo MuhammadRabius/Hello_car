@@ -1,0 +1,125 @@
+$primary_color: #e67e22;
+$secondary_color: #0000;
+$primary_text: #525252;
+$btn_color: "#0000";
+$btn_hover: "#0000";
+$btn_foucs: "#0000";
+$btn_visited: "#0000";
+$normal_text: "#000";
+$primary_bg: rgb(27, 28, 68);
+$secondary_bg: rgb(1, 148, 243);
+$body_bg: #ebf0f4;
+$link: "#000";
+$border_color: #e3e3e3;
+$color: #1c3c6b;
+$gray: #ada7a7;
+$gray_text: #5d6974;
+
+
+@mixin flexo($display, $item, $content) {
+    display: $display;
+    align-items: $item;
+    justify-content: $content;
+}
+
+
+@mixin flex($display, $item) {
+    display: $display;
+    align-items: $item;
+}
+
+
+@mixin input($padding) {
+    border: 1px solid $border_color;
+    outline: none;
+    padding: $padding;
+    border-radius: 4px;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+}
+
+@mixin button($bg, $color, $border, $padding, $font_size, $weight) {
+    outline: none;
+    border: $border;
+    padding: $padding;
+    background: $bg;
+    color: $color;
+    cursor: pointer;
+    font-size: $font_size;
+    font-weight: $weight;
+    transition: 0.3s ease-out;
+    border-radius: 4px;
+}
+
+@mixin link {
+    color: $color;
+    font-size: $size;
+    font-weight: $weight;
+}
+
+
+@mixin tab_btn($color) {
+    outline: none;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    color: $color;
+}
+
+@mixin btn_link($color, $padding, $font_size, $weight) {
+    outline: none;
+    background: transparent;
+    border: none;
+    font-size: $font_size;
+    font-weight: $weight;
+    padding: $padding;
+    cursor: pointer;
+    color: $color;
+}
+
+@mixin title($size, $weight, $color) {
+    font-size: $size;
+    font-weight: $weight;
+    color: $color;
+}
+
+@mixin label {
+    color: #363636;
+    font-weight: 600;
+    font-size: 0.975rem;
+}
+
+@mixin  box {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    height: 100px;
+    cursor: pointer;
+}
+
+@mixin form__field {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6c6c6c;
+}
+
+@mixin sub_title {
+    text-transform: capitalize;
+    font-size: 13px;
+    color: #5d6974;
+    // white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@mixin  box_title {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-right: 5px;
+}
+
