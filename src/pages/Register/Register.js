@@ -1,36 +1,62 @@
 import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import "./Register.scss";
+import { useNavigate } from "react-router-dom";
+import { userRegister } from "../../API/api";
 const Register = () => {
-      
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    const { email, username, password, phoneNumber, carModel } = values;
+
+    const payload = {
+      email: email,
+      username: username,
+      password: password,
+      phoneNumber: phoneNumber,
+      cardModel: carModel,
+    };
+
+    console.log("payload", payload);
+
+    try {
+      const res = await userRegister(payload);
+      console.log("res", res);
+      message.success(res.data.message);
+      // navigate("/user-login");
+    } catch (err) {
+      console.log(err);
+      message.error(err.res.message);
+    }
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+
   return (
     <>
       <div className="register_page">
         <div className="container">
           <div className="register_pg_content">
+            {/* Image container-- Left*/}
             <div className="register_banner">
               <img src="/images/logo/logo.png" alt="hello_car_logo" />
             </div>
+
+            {/* Registration Form for new User--Right */}
             <div className="register_form">
+              <div>
+                <h1>Sign Up</h1> <hr style={{ marginBottom: "20px" }} />
+              </div>
               <Form
                 layout="vertical"
                 style={{ width: "100%" }}
                 initialValues={{
                   remember: true,
-                  layout: "vertical",
                 }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+                //     onFinishFailed={onFinishFailed}
                 autoComplete="off"
               >
                 <Form.Item
-                  label="Full Name"
+                  label="User Name"
                   name="username"
                   rules={[
                     {
@@ -56,8 +82,21 @@ const Register = () => {
                 </Form.Item>
 
                 <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input unique password",
+                    },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <Form.Item
                   label="Phone Number"
-                  name="ph_number"
+                  name="phoneNumber"
                   rules={[
                     {
                       min: 11,
@@ -70,7 +109,7 @@ const Register = () => {
                   <Input type="number" />
                 </Form.Item>
 
-                <Form.Item label="Your Car Model (Optional)" name="username">
+                <Form.Item label="Your Car Model (Optional)" name="carModel">
                   <Input />
                 </Form.Item>
 
@@ -80,7 +119,7 @@ const Register = () => {
                     type="primary"
                     htmlType="submit"
                   >
-                    Regiser
+                    Register
                   </Button>
                 </Form.Item>
               </Form>

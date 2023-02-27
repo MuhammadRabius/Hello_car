@@ -1,11 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Login.scss";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
+import { LoginApi } from "../../API/api";
 
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const onFinish = async (values) => {
+    const payload = {
+      email: values.email,
+      password: values.password,
+    };
+    console.log("payload:", payload);
+    try {
+      const res = await LoginApi(payload);
+      console.log("res", res);
+      message.success(res.data.message);
+    } catch (error) {
+      message.error(error.res.data.message);
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -58,6 +70,7 @@ const Login = () => {
           
         </form> */}
         <Form
+          layout="vertical"
           initialValues={{
             remember: true,
           }}
@@ -66,8 +79,8 @@ const Login = () => {
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
-            name="username"
+            label="Email"
+            name="email"
             rules={[
               {
                 required: true,
@@ -75,7 +88,7 @@ const Login = () => {
               },
             ]}
           >
-            <Input />
+            <Input type="email" />
           </Form.Item>
 
           <Form.Item
