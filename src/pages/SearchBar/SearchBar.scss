@@ -1,0 +1,27 @@
+.search_bar_page{
+    background: rgba(33,150,243,.18);
+    padding: 2rem 0;
+    margin-bottom: 40px;
+
+    .search_bar_inner{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+      
+      .box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+                background: #fff;
+                border-radius: 8px;
+                cursor: pointer;
+                width: 50%;
+                gap:10px
+      }
+                
+    }
+
+    
+}
