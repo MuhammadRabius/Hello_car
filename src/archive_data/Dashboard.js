@@ -17,8 +17,8 @@ export const dashboard__link = [
   },
 
   {
-    title: "Profile",
-    link: "/profile",
+    title: "Dashboard",
+    link: "/user-dashboard",
     icon: <UserOutlined />,
   },
 
@@ -28,7 +28,12 @@ export const dashboard__link = [
     icon: <RiPlaneFill />,
   },
   {
-    title: "Car list",
+    title: "Car Log",
+    link: "/car-log",
+    icon: <HistoryOutlined />,
+  },
+  {
+    title: "Bookmark",
     link: "/car-list",
     icon: <HistoryOutlined />,
   },

@@ -22,7 +22,7 @@
             a {
                 display: flex;
                 align-items: center;
-
+                text-decoration: none;
                 padding: 10px;
                 margin-bottom: 2px;
                 @include title(0.875rem, 500, #626161);

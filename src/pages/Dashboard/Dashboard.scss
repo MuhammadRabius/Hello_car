@@ -13,6 +13,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            gap: 20px;
 
             .user__sidebar {
                 width: 20%;
@@ -48,8 +49,9 @@
             }
 
             .dashboard__body {
-                width: 80%;
+                width: 78%;
                 min-height: 70vh;
+                margin-top: 10px;
 
                 @media screen and (max-width: 800px) {
                     width: 100%;

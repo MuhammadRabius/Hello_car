@@ -11,9 +11,12 @@ import "./Dashboard.scss";
 import SideBar from "../../component/Sidebar/Siderbar";
 import Profile from "../Profile/Profile";
 import Search from "./../../component/SearchComp/Search";
+import CreateCar from "../CreateCar/CreateCar";
+import CarLog from "./../CarLog/CarLog";
+import UserDashboard from "../UserDashboard/UserDashboard";
 
 const Dashboard = () => {
-  const { path, url } = useLocation();
+  const { path, url } = useResolvedPath("").pathname;
   //   #useResolvedPath("").pathname or useLocation
   const [h, setHeight] = useState(0);
   const [load, setLoad] = useState(false);
@@ -56,7 +59,11 @@ const Dashboard = () => {
 
             <div className="dashboard__body">
               <Routes>
-                <Route path={`${path}`} component={Search} exact />
+                <Route index element={<Search />} />
+                <Route path={`${path}`} element={<Search />} />
+                <Route path={`${path}/user-dashboard`} element={<UserDashboard />} />
+                <Route path={`${path}/create-car`} element={<CreateCar />} />
+                <Route path={`${path}/car-log`} element={<CarLog />} />
               </Routes>
             </div>
           </div>
