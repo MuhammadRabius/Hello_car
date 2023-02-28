@@ -1,0 +1,51 @@
+@import '../../../variable.scss';
+
+.client__sidebar {
+
+    .sidebar__innner {
+
+        border-right: 1px solid $border-color;
+
+        .sidebar__content {
+
+            .active {
+                background:  #e6f7ff;
+                color: #1890ff;
+                border-right: 4px solid #1890ff;
+            }
+
+            li {
+                list-style: none !important;
+                display: block;
+            }
+            
+            a {
+                display: flex;
+                align-items: center;
+
+                padding: 10px;
+                margin-bottom: 2px;
+                @include title(0.875rem, 500, #626161);
+                transition: 0.3s ease-out;
+
+                .icon {
+                    margin-right: 5px;
+                
+                }
+
+                &:hover{
+                 @extend .active;
+
+                }
+
+                .link__item {}
+            }
+
+          
+        }
+    }
+
+
+
+
+}

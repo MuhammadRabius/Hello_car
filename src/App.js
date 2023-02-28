@@ -6,6 +6,7 @@ import Search from "./component/SearchComp/Search";
 import Login from "./pages/Login/Login";
 import Offer from "./pages/Offer/Offer";
 import Register from "./pages/Register/Register";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -13,10 +14,12 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Search />} />
-        <Route path="/user-login" element={<Login />} />
-        <Route path="/user-register" element={<Register />} />
+        <Route path="/user-login" element={<Login />} exact />
+        <Route path="/user-register" element={<Register />} exact />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Offer />} />
       </Routes>
-      <Offer />
+
       <Footer />
     </div>
   );

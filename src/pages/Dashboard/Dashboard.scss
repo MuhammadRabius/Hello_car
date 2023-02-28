@@ -1,0 +1,69 @@
+.dashboard {
+    margin-top: 2rem;
+
+
+    .dashboard_container {
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 0 2rem;
+        position: relative;
+
+
+        .dashboard__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            .user__sidebar {
+                width: 20%;
+                transition: 0.3s ease-out;
+
+                @media screen and (max-width: 800px) {
+                    width: 100%;
+                    height: 0;
+                    overflow: hidden;
+                    padding: 0px 2rem;
+
+                }
+            }
+
+            .menu__mb {
+                display: none;
+
+                svg {
+                    font-size: 2rem;
+                }
+
+
+                @media screen and (max-width: 799px) {
+                    display: block;
+                    margin-left: auto;
+                    position: absolute;
+                    right: 60px;
+                    top: -25px;
+
+
+                }
+
+            }
+
+            .dashboard__body {
+                width: 80%;
+                min-height: 70vh;
+
+                @media screen and (max-width: 800px) {
+                    width: 100%;
+                    overflow-x: auto;
+
+
+                }
+            }
+
+
+            @media screen and (max-width: 800px) {
+                flex-direction: column;
+
+            }
+        }
+    }
+}
