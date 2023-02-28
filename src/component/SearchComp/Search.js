@@ -9,7 +9,6 @@ const Search = () => {
       <div className="search_page">
         <div className="content_compo">
           <SearchBar />
-          <SearchResult />
         </div>
       </div>
     </div>

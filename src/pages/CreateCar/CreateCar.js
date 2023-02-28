@@ -1,21 +1,41 @@
-import { Button, Card, Form, Input, Upload } from "antd";
-import React from "react";
+import { Button, Card, Form, Input, message, Upload } from "antd";
+import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import "./CreateCar.scss";
+import { CreateNewCar } from "./../../API/api";
 
 const CreateCar = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+  const [carImg, setImg] = useState();
+  const onFinish = async (values) => {
+    const payload = {
+      brandName: values.brandName,
+      carModel: values.carModel,
+      releaseDate: values.releaseDate,
+      buyingPrice: values.buyingPrice,
+      sellPrice: values.sellPrice,
+      sets: values.sets,
+      image: carImg || "",
+    };
+
+    console.log("newcar", payload);
+
+    try {
+      const res = await CreateNewCar(payload);
+      message.success(res.data.message);
+    } catch (error) {
+      message.error(error.res.message);
+    }
   };
 
-  const onChangeForCarImage = () => {};
+  const onChangeForCarImage = (e) => {
+    const image = e.fileList[0].originFileObj;
+
+    // Image Uploaded Via Third Party API
+    setImg(image);
+  };
   return (
     <>
       <div className="create_car_page">
-        
         <div className="innerContent">
           <Card type="inner" title="Create Your Car">
             <Form
@@ -24,12 +44,11 @@ const CreateCar = () => {
                 remember: true,
               }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
               <Form.Item
                 label="Car Brand Name"
-                name="carName"
+                name="brandName"
                 rules={[
                   {
                     required: true,

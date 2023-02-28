@@ -13,8 +13,8 @@ const Login = () => {
     console.log("payload:", payload);
     try {
       const res = await LoginApi(payload);
-      console.log("res", res);
       message.success(res.data.message);
+      sessionStorage.setItem("token", JSON.stringify(res.data.token));
     } catch (error) {
       message.error(error.res.data.message);
     }

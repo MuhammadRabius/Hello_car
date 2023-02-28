@@ -8,6 +8,7 @@ import { Avatar, Card } from "antd";
 
 import "./SearchResult.scss";
 import Fliter from "./Fliter";
+import SearchBar from "../SearchBar/SearchBar";
 
 const SearchResult = () => {
   const { Meta } = Card;
@@ -15,6 +16,10 @@ const SearchResult = () => {
   return (
     <>
       <div className="search_result_page">
+        <div className="search_bar">
+          <SearchBar />
+        </div>
+
         <div className="container">
           <div className="innerContent">
             <div className="filer">
@@ -23,7 +28,7 @@ const SearchResult = () => {
             <div className="card_result">
               <Card
                 style={{
-                  width: 300,
+                  width: 200,
                 }}
                 cover={
                   <img
