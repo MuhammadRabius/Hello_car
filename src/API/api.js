@@ -22,3 +22,16 @@ export const CreateNewCar = async (data) =>
 
 export const DisplayCar = async () =>
   await axios.get(`https://hellcarengine.onrender.com/api/cars/my-car`);
+
+// Update Car
+export const UpdateCar = async (id, data) =>
+  await axios.put(
+    `https://hellcarengine.onrender.com/api/cars/update-car/${id}`,
+    data
+  );
+
+// Delete Car
+export const DeleteCar = async (id) =>
+  await axios.delete(
+    `https://hellcarengine.onrender.com/api/cars/delete-car/${id}`
+  );

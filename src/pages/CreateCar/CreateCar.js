@@ -9,13 +9,14 @@ import withAuth from "../../auth/withAuth";
 const CreateCar = () => {
   const [carImg, setImg] = useState();
   const navigate = useNavigate();
+
   const onFinish = async (values) => {
     const payload = {
       brandName: values.brandName,
       carModel: values.carModel,
       releaseDate: values.releaseDate,
       buyingPrice: values.buyingPrice,
-      sellPrice: values.sellPrice,
+      sellPrice: values.sellingPrice || "Not For Sale Now",
       sets: values.sets,
       image: carImg || "",
     };
@@ -24,6 +25,7 @@ const CreateCar = () => {
 
     try {
       const res = await CreateNewCar(payload);
+      console.log("re", res);
       message.success(res.data.message);
       navigate("/dashboard/undefined/car-log");
     } catch (error) {

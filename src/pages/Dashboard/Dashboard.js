@@ -5,6 +5,7 @@ import {
   useLocation,
   useResolvedPath,
   useRouteMatch,
+  useRoutes,
 } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import "./Dashboard.scss";
@@ -15,10 +16,12 @@ import CreateCar from "../CreateCar/CreateCar";
 import CarLog from "./../CarLog/CarLog";
 import UserDashboard from "../UserDashboard/UserDashboard";
 import withAuth from "../../auth/withAuth";
+import SearchResult from "../SearchResult/SearchResult";
 
 const Dashboard = () => {
   const { path, url } = useResolvedPath("").pathname;
-  //   #useResolvedPath("").pathname or useLocation
+  console.log("path", path, url);
+  //  useResolvedPath("").pathname # or useLocation
   const [h, setHeight] = useState(0);
   const [load, setLoad] = useState(false);
   const hideShow = (e) => {
@@ -62,6 +65,10 @@ const Dashboard = () => {
               <Routes>
                 <Route index element={<Search />} />
                 <Route path={`${path}`} element={<Search />} />
+                <Route
+                  path={`${path}/search/searchresult/`}
+                  element={<SearchResult />}
+                />
                 <Route
                   path={`${path}/user-dashboard`}
                   element={<UserDashboard />}

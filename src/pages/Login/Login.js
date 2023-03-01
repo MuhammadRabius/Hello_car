@@ -18,7 +18,8 @@ const Login = () => {
       if (res.status === 200) {
         message.success(res.data.message);
         sessionStorage.setItem("token", JSON.stringify(res.data.token));
-        navigate("/");
+        // navigate();
+        window.location.replace("/dashboard");
       }
       message.error(res.message);
     } catch (error) {

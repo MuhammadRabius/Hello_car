@@ -10,7 +10,7 @@ const withAuth = (WrappedComponent) => {
 
       // If there is no access token we redirect to "/" page.
       if (!accessToken) {
-        window.location.replace("/login");
+        window.location.replace("/user-login");
         return null;
       }
 

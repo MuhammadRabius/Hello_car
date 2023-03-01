@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { CarList } from "../../archive_data/CarList";
 import "./SearchBar.scss";
 import { useNavigate } from "react-router-dom";
+import { IsToken } from "./../../global_stage/action";
 
 const SearchBar = () => {
   const navigate = useNavigate();
@@ -10,6 +11,12 @@ const SearchBar = () => {
   const [value, setValue] = useState(4);
   const [minp, setMinP] = useState(0);
   const [maxp, setmaxP] = useState(0);
+
+  // route path checking
+  const isSearchPage =
+    window.location.pathname === "/dashboard/undefined" ||
+    window.location.pathname === "/dashboard/search/searchresult";
+
   // Brand Select
   const onChange = (value) => {
     setCBrand(value);
@@ -30,7 +37,10 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const searchPath = `/search/searchresult?carModel=${brand}&sets=${value}&minPrice=${minp}&maxPrice=${maxp}`;
+    const searchPath = `${
+      isSearchPage ? "/dashboard/search/searchresult" : "/search/searchresult"
+    }/?carModel=${brand}&sets=${value}&minPrice=${minp}&maxPrice=${maxp}`;
+
     navigate(searchPath);
   };
   return (
