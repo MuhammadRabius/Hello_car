@@ -3,6 +3,7 @@ import {
   EditOutlined,
   EllipsisOutlined,
   CloseOutlined,
+  PlusSquareFilled,
 } from "@ant-design/icons";
 import "./CarLog.scss";
 import {
@@ -14,28 +15,40 @@ import {
   Modal,
   Pagination,
   Popconfirm,
+  Tag,
+  Tooltip,
 } from "antd";
 import withAuth from "../../auth/withAuth";
-import { DeleteCar, DisplayCar, UpdateCar } from "../../API/api";
+import { DeleteCar, DisplayCar, UpdateCar, updateOffer } from "../../API/api";
 import { getLocalDate } from "../../global_stage/action";
 
 const CarLog = () => {
   const { Meta } = Card;
   const { TextArea } = Input;
-
+  // State Management
   const [carData, setCarData] = useState([]);
   const [callback, setCallback] = useState(false);
   const [updateId, setId] = useState("");
+  const [off__Id, setOffId] = useState("");
   console.log("update", carData);
   // modal-----------------------
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [offerModal, setOfferModal] = useState(false);
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setOfferModal(false);
+  };
+
+  // Update Car Modal Schema---
   const showModal = (e, id) => {
     setIsModalOpen(true);
     setId(id);
   };
-  const handleOk = () => {};
-  const handleCancel = () => {
-    setIsModalOpen(false);
+
+  // Update Car Modal Schema---
+  const offerSetModal = (e, id) => {
+    setOfferModal(true);
+    setOffId(id);
   };
 
   // mycar GET------------------
@@ -84,9 +97,21 @@ const CarLog = () => {
       message.error("Something went wrong");
     }
   };
-  const cancel = (e) => {
-    console.log(e);
-    message.error("Click on No");
+
+  // Set Offer -----------------------
+  const onOfferForm = async (values) => {
+    const payload = {
+      offerPrice: values.offerPrice,
+    };
+
+    try {
+      const res = await updateOffer(off__Id, payload);
+      message.success(res.data.message);
+      setCallback(!callback);
+      setOfferModal(false);
+    } catch (error) {
+      message.error(error.res.message);
+    }
   };
 
   return (
@@ -96,6 +121,7 @@ const CarLog = () => {
           <h2>Your Cars Activities Log </h2> <hr />
         </div>
         <div className="innerContent">
+          {/* Card for user car */}
           {carData.map((item, i) => {
             return (
               <>
@@ -114,35 +140,69 @@ const CarLog = () => {
                     />
                   }
                   actions={[
-                    <EditOutlined
-                      key="edit"
-                      onClick={(e) => showModal(e, item._id)}
-                    />,
+                    <Tooltip title="Update Your Car Info">
+                      <EditOutlined
+                        key="edit"
+                        onClick={(e) => showModal(e, item._id)}
+                      />
+                    </Tooltip>,
+                    <Tooltip title="Delete Your Car">
+                      <Popconfirm
+                        title="Are you sure to delete this Car?"
+                        onConfirm={(e) => confirm(e, item._id)}
+                        okText="Yes"
+                        cancelText="No"
+                      >
+                        <CloseOutlined key="closeout" />
+                      </Popconfirm>
+                    </Tooltip>,
 
-                    <Popconfirm
-                      title="Are you sure to delete this Car?"
-                      onConfirm={(e) => confirm(e, item._id)}
-                      onCancel={cancel}
-                      okText="Yes"
-                      cancelText="No"
-                    >
-                      <CloseOutlined key="closeout" />
-                    </Popconfirm>,
+                    <Tooltip title="Update Your Offer">
+                      <span>
+                        <PlusSquareFilled
+                          onClick={(e) => offerSetModal(e, item._id)}
+                          style={{ marginLeft: "5px" }}
+                        />
+                      </span>
+                    </Tooltip>,
                   ]}
                 >
                   <Meta title={`Card Brand  : ${item.brandName}`} />
-                  <p>Car Model : ${item.carModel}</p>
-                  <p> Release Date : {getLocalDate(item.releaseDate)}</p>
-                  <p>Buying Price : ${item.buyingPrice}</p>
-                  <p>Sell Price Price : ${item.sellPrice}</p>
-                  <p>Description : ${item.description}</p>
+                  <p className="text_group">Car Model : ${item.carModel}</p>
+                  <p className="text_group">
+                    Release Date : {getLocalDate(item.releaseDate)}
+                  </p>
+                  <p className="text_group">
+                    Buying Price : <Tag color="#2db7f5">{item.buyingPrice}</Tag>
+                  </p>
+                  <p className="text_group">
+                    Selling Price :
+                    {item.offerPrice ? (
+                      <Tag color="red">
+                        <del>{item.sellPrice}</del>
+                      </Tag>
+                    ) : (
+                      <Tag color="#87d068">{item.sellPrice}</Tag>
+                    )}
+                  </p>
+
+                  <p className="text_group">
+                    Offer Price :
+                    {item.offerPrice ? (
+                      <Tag color="#87d068">{item.offerPrice}</Tag>
+                    ) : (
+                      "Not Set Yet!!"
+                    )}
+                  </p>
+                  <p className="text_group">
+                    Description : ${item.description}
+                  </p>
                 </Card>
               </>
             );
           })}
           ;
         </div>
-
         {/* Add Pagination */}
         <Pagination
           style={{ marginBottom: "20px", textAlign: "end" }}
@@ -150,9 +210,8 @@ const CarLog = () => {
           pageSize={6}
           total={carData.length}
         />
-
+        {/* Modal For Update Data */}
         <div className="modal">
-          {/* Modal For Update Data */}
           <Modal
             title={`Update Your Car `}
             open={isModalOpen}
@@ -208,6 +267,45 @@ const CarLog = () => {
             </Form>
           </Modal>
         </div>
+
+        {/* Modal For Offer */}
+        <div className="modal">
+          <Modal
+            title={`Set Your Offer For This Car`}
+            open={offerModal}
+            onCancel={handleCancel}
+            footer={null}
+          >
+            <Form
+              layout="vertical"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onOfferForm}
+              autoComplete="off"
+            >
+              <Form.Item
+                label="Update Offer"
+                name="offerPrice"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your Offer Price!",
+                  },
+                ]}
+              >
+                <Input type="number" />
+              </Form.Item>
+
+              <Form.Item style={{ textAlign: "center" }}>
+                <Button type="primary" htmlType="submit">
+                  Update Offer
+                </Button>
+              </Form.Item>
+            </Form>
+          </Modal>
+        </div>
+        {/* ---- */}
       </div>
     </>
   );

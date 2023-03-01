@@ -52,11 +52,10 @@ const SearchBar = () => {
               <div className="box">
                 <label htmlFor="brand">Brand</label>
                 <Select
-                  require
                   showSearch
-                  style={{
-                    width: 200,
-                  }}
+                  // style={{
+                  //   width: 200,
+                  // }}
                   placeholder="Select Brand"
                   optionFilterProp="children"
                   onChange={onChange}
@@ -79,6 +78,7 @@ const SearchBar = () => {
                   <Radio value={4}>4</Radio>
                   <Radio value={6}>6</Radio>
                   <Radio value={8}>8</Radio>
+                  <Radio value={10}>10</Radio>
                 </Radio.Group>
               </div>
               <div className="box">
@@ -97,7 +97,8 @@ const SearchBar = () => {
                     type="number"
                     placeholder="min"
                     require
-                  />
+                  />{" "}
+                  --
                   <Input
                     onChange={(e) => maxPriceHandle(e.target.value)}
                     type="number"

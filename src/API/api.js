@@ -35,3 +35,10 @@ export const DeleteCar = async (id) =>
   await axios.delete(
     `https://hellcarengine.onrender.com/api/cars/delete-car/${id}`
   );
+
+// Update Car
+export const updateOffer = async (id, data) =>
+  await axios.put(
+    `https://hellcarengine.onrender.com/api/cars/offer-car/${id}`,
+    data
+  );
