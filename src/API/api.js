@@ -47,5 +47,5 @@ export const updateOffer = async (id, data) =>
 
 export const SearchAPI = async (brand, set, minP, maxP) =>
   await axios.get(
-    `http://localhost:8000/api/cars/search-car?brand=${brand}&set=${set}&minP=${minP}&maxP=${maxP}`
+    `https://hellcarengine.onrender.com/api/cars/search-car?brand=${brand}&set=${set}&minP=${minP}&maxP=${maxP}`
   );
