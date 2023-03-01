@@ -104,14 +104,14 @@ const SearchResult = () => {
                 );
               })}
             </div>
-            {/* Add Pagination */}
-            <Pagination
-              style={{ marginBottom: "20px", textAlign: "end" }}
-              defaultCurrent={1}
-              pageSize={6}
-              total={carData.length}
-            />
           </div>
+          {/* Add Pagination */}
+          <Pagination
+            style={{ marginBottom: "20px", textAlign: "end" }}
+            defaultCurrent={1}
+            pageSize={6}
+            total={carData.length}
+          />
         </div>
       </div>
     </>
