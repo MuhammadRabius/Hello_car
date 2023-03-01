@@ -1,43 +1,34 @@
 import { Button, message } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
+import { IsToken, Logout } from "../../global_stage/action";
 import "./Header.scss";
 
 const Header = () => {
-  const [check, setCheck] = useState(false);
-  const [amount, setAmount] = useState("");
+  const isSignIn = () => {
+    return IsToken() ? (
+      <>
+        <li className="dropdown__menu">
+          <span className="user">
+            <FaUser />
+          </span>
 
-  // const isSignIn = () => {
-  //   return IsToken() ? (
-  //     <>
-  //       <div className="amount" onClick={checkBalance}>
-  //         <span className={`dot ${check ? "animation" : ""}`}>৳</span>
-  //         <div className="tap">{check ? amount : "Check balance"}</div>
-  //       </div>
-
-  //       <li className="dropdown__menu">
-  //         <span className="user">
-  //           <FaUser />
-  //         </span>
-
-  //         <div className="dropdown">
-  //           <Link to="/dashboard">Dashboard</Link>
-  //           <Link to="/dashboard/user-booking">My Booking</Link>
-  //           <Link to="/dashboard/change-password">Change Password</Link>
-
-  //           <Link to="#" onClick={Logout}>
-  //             Logout
-  //           </Link>
-  //         </div>
-  //       </li>
-  //     </>
-  //   ) : (
-  //     <li>
-  //       {" "}
-  //       <Link to="/login">Sign In</Link>
-  //     </li>
-  //   );
-  // };
+          <div className="dropdown">
+            <Link to="/dashboard">Dashboard</Link>
+            <Link to="#" onClick={Logout}>
+              Logout
+            </Link>
+          </div>
+        </li>
+      </>
+    ) : (
+      <li>
+        {" "}
+        <Link to="/user-login">Sign In</Link>
+      </li>
+    );
+  };
 
   return (
     <div className="header">
@@ -60,10 +51,10 @@ const Header = () => {
               {/* <li>
                 <Link to="/login">Sign In</Link>
               </li> */}
-              {/* {isSignIn()} */}
-              <Link to="/user-login">
+              {isSignIn()}
+              {/* <Link to="/user-login">
                 <Button type="primary">Login</Button>
-              </Link>
+              </Link> */}
             </ul>
           </div>
         </div>

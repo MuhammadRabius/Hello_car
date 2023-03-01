@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import "./CreateCar.scss";
 import { CreateNewCar } from "./../../API/api";
+import { useNavigate } from "react-router-dom";
+import withAuth from "../../auth/withAuth";
 
 const CreateCar = () => {
   const [carImg, setImg] = useState();
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     const payload = {
       brandName: values.brandName,
@@ -22,6 +25,7 @@ const CreateCar = () => {
     try {
       const res = await CreateNewCar(payload);
       message.success(res.data.message);
+      navigate("/dashboard/undefined/car-log");
     } catch (error) {
       message.error(error.res.message);
     }
@@ -151,4 +155,4 @@ const CreateCar = () => {
   );
 };
 
-export default CreateCar;
+export default withAuth(CreateCar);

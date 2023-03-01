@@ -14,6 +14,7 @@ import Search from "./../../component/SearchComp/Search";
 import CreateCar from "../CreateCar/CreateCar";
 import CarLog from "./../CarLog/CarLog";
 import UserDashboard from "../UserDashboard/UserDashboard";
+import withAuth from "../../auth/withAuth";
 
 const Dashboard = () => {
   const { path, url } = useResolvedPath("").pathname;
@@ -61,7 +62,10 @@ const Dashboard = () => {
               <Routes>
                 <Route index element={<Search />} />
                 <Route path={`${path}`} element={<Search />} />
-                <Route path={`${path}/user-dashboard`} element={<UserDashboard />} />
+                <Route
+                  path={`${path}/user-dashboard`}
+                  element={<UserDashboard />}
+                />
                 <Route path={`${path}/create-car`} element={<CreateCar />} />
                 <Route path={`${path}/car-log`} element={<CarLog />} />
               </Routes>
@@ -73,4 +77,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);

@@ -22,8 +22,11 @@ const Register = () => {
     try {
       const res = await userRegister(payload);
       console.log("res", res);
-      message.success(res.data.message);
-      // navigate("/user-login");
+      if (res.status === 201) {
+        message.success(res.data.message);
+        navigate("/user-login");
+      }
+      message.error(res.data.message);
     } catch (err) {
       console.log(err);
       message.error(err.res.message);

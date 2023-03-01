@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import { LoginApi } from "../../API/api";
 
 const Login = () => {
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     const payload = {
       email: values.email,
@@ -13,8 +14,13 @@ const Login = () => {
     console.log("payload:", payload);
     try {
       const res = await LoginApi(payload);
-      message.success(res.data.message);
-      sessionStorage.setItem("token", JSON.stringify(res.data.token));
+
+      if (res.status === 200) {
+        message.success(res.data.message);
+        sessionStorage.setItem("token", JSON.stringify(res.data.token));
+        navigate("/");
+      }
+      message.error(res.message);
     } catch (error) {
       message.error(error.res.data.message);
     }

@@ -3,5 +3,11 @@
       .banner{
             margin-bottom: 20px;
       }
+      .innerContent{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            align-items: center;
+            gap: 20px;
+      }
 
 }
