@@ -42,3 +42,10 @@ export const updateOffer = async (id, data) =>
     `https://hellcarengine.onrender.com/api/cars/offer-car/${id}`,
     data
   );
+
+// Search API
+
+export const SearchAPI = async (brand, set, minP, maxP) =>
+  await axios.get(
+    `http://localhost:8000/api/cars/search-car?brand=${brand}&set=${set}&minP=${minP}&maxP=${maxP}`
+  );

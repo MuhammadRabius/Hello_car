@@ -59,7 +59,7 @@ const SearchBar = () => {
     e.preventDefault();
     const searchPath = `${
       isSearchPage ? "/dashboard/search/searchresult" : "/search/searchresult"
-    }/?carModel=${brand}&sets=${value}&minP=${minP}&maxP=${maxP}`;
+    }?carModel=${brand}&sets=${value}&minP=${minP}&maxP=${maxP}`;
 
     navigate(searchPath);
   };

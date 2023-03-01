@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-
+import qrStr from "query-string";
 import { Avatar, Card, Pagination, Tag } from "antd";
 import Fliter from "./Fliter";
 import SearchBar from "../SearchBar/SearchBar";
 import "./SearchResult.scss";
 import { getLocalDate } from "../../global_stage/action";
-import { DisplayCar } from "../../API/api";
+import { DisplayCar, SearchAPI } from "../../API/api";
 
 const SearchResult = () => {
   const { Meta } = Card;
-
   const [carData, setCarData] = useState([]);
+
+  const params = window.location.search;
+  const { carModel, sets, minP, maxP } = qrStr.parse(params);
 
   // mycar GET------------------
 
@@ -19,7 +21,7 @@ const SearchResult = () => {
 
     (async () => {
       try {
-        const display = await DisplayCar();
+        const display = await SearchAPI(carModel, sets, minP, maxP);
         setCarData(display.data.data);
       } catch (err) {
         console.warn(err.message);
@@ -27,7 +29,7 @@ const SearchResult = () => {
     })();
 
     // return () => ac.abort();
-  }, []);
+  }, [carModel, sets, minP, maxP]);
 
   return (
     <>
