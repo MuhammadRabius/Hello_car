@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 import { DisplayCar } from "../../API/api";
 import { getLocalDate } from "../../global_stage/action";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import "./Offer.scss";
+import "./Alloffer.scss";
 
-const Offer = () => {
+const AllOffer = () => {
   const { Meta } = Card;
   const [carData, setCarData] = useState([]);
 
@@ -32,16 +32,11 @@ const Offer = () => {
         <div className="container">
           <div className="innerContent">
             <div className="title_banner">
-              <NavLink to="/all-offer" style={{ textDecoration: "none" }}>
-                <h4>
-                  See All Offer
-                  <ArrowRightOutlined style={{ marginLeft: "10px" }} />
-                </h4>
-                <hr />
-              </NavLink>
+              <h2 className="text_content">See Offer</h2>
+              <hr />
             </div>
             <div className="offer_content">
-              {carData.slice(0, 4).map((item, i) => {
+              {carData.map((item, i) => {
                 return (
                   <>
                     {item.offerPrice ? (
@@ -110,4 +105,4 @@ const Offer = () => {
   );
 };
 
-export default Offer;
+export default AllOffer;

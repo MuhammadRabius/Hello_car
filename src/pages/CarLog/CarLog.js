@@ -30,7 +30,9 @@ const CarLog = () => {
   const [callback, setCallback] = useState(false);
   const [updateId, setId] = useState("");
   const [off__Id, setOffId] = useState("");
-  console.log("update", carData);
+  const [m, set_M] = useState("");
+  const [p, set_P] = useState("");
+
   // modal-----------------------
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [offerModal, setOfferModal] = useState(false);
@@ -40,13 +42,15 @@ const CarLog = () => {
   };
 
   // Update Car Modal Schema---
-  const showModal = (e, id) => {
+  const showModal = (e, id, model, price) => {
     setIsModalOpen(true);
     setId(id);
+    set_M(model);
+    set_P(price);
   };
 
   // Update Car Modal Schema---
-  const offerSetModal = (e, id) => {
+  const offerSetModal = (e, id, model, price) => {
     setOfferModal(true);
     setOffId(id);
   };
@@ -127,7 +131,7 @@ const CarLog = () => {
               <>
                 <Card
                   style={{
-                    width: 300,
+                    width: 280,
                   }}
                   cover={
                     <img
@@ -143,7 +147,9 @@ const CarLog = () => {
                     <Tooltip title="Update Your Car Info">
                       <EditOutlined
                         key="edit"
-                        onClick={(e) => showModal(e, item._id)}
+                        onClick={(e) =>
+                          showModal(e, item._id, item.carModel, item.sellPrice)
+                        }
                       />
                     </Tooltip>,
                     <Tooltip title="Delete Your Car">
@@ -195,13 +201,15 @@ const CarLog = () => {
                     )}
                   </p>
                   <p className="text_group">
-                    Description : ${item.description}
+                    Description :
+                    {item.description
+                      ? `${item.description}`
+                      : "No Description"}
                   </p>
                 </Card>
               </>
             );
           })}
-          ;
         </div>
         {/* Add Pagination */}
         <Pagination
@@ -226,17 +234,8 @@ const CarLog = () => {
               onFinish={onFinish}
               autoComplete="off"
             >
-              <Form.Item
-                label="Update Car Model"
-                name="carModel"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Car Model!",
-                  },
-                ]}
-              >
-                <Input />
+              <Form.Item label="Update Car Model" name="carModel">
+                <Input defaultValue={m} readOnly />
               </Form.Item>
 
               <Form.Item
@@ -249,7 +248,7 @@ const CarLog = () => {
                   },
                 ]}
               >
-                <Input type="number" />
+                <Input type="number" defaultValue={p} />
               </Form.Item>
 
               <Form.Item label="Description" name="description">

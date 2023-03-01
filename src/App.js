@@ -7,6 +7,7 @@ import Register from "./pages/Register/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Home from "./pages/Home/Home";
 import SearchResult from "./pages/SearchResult/SearchResult";
+import AllOffer from "./pages/Offer/AllOffer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/user-login" element={<Login />} exact />
         <Route path="/user-register" element={<Register />} exact />
         <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/all-offer" element={<AllOffer />} />
       </Routes>
 
       <Footer />

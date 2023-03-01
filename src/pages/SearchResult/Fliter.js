@@ -1,6 +1,6 @@
 import React from "react";
 import qrStr from "query-string";
-import { Card } from "antd";
+import { Card, Checkbox } from "antd";
 import "./Filter.scss";
 
 const Fliter = () => {
@@ -11,26 +11,57 @@ const Fliter = () => {
     <>
       <div className="filter_page">
         <Card
+          title="Filter"
           style={{
-            width: 300,
+            width: 250,
           }}
         >
           <div className="label_opt">
             <div className="search_opt">
               <label>Car </label> <hr />
-              <span className="search_text">{carModel}</span>
+              <Checkbox className="search_text" checked>
+                {carModel}
+              </Checkbox>
             </div>
             <div className="search_opt">
-              <label> Set Size </label>
+              <label>
+                Model <hr />
+              </label>
+              <Checkbox className="search_text"></Checkbox>
+              <span className="search_text"></span>
+            </div>
+
+            <div className="search_opt">
+              <label>
+                Release Year <hr />
+              </label>
+              <Checkbox className="search_text"></Checkbox>
+              <span className="search_text"></span>
+            </div>
+
+            <div className="search_opt">
+              <label>
+                Set Size <hr />
+              </label>
+              <Checkbox className="search_text" checked>
+                {sets}
+              </Checkbox>
+              <span className="search_text"></span>
+            </div>
+
+            <div className="search_opt">
+              <label> Minimum Price </label>
               <hr />
-              <span className="search_text">{sets}</span>
+              <Checkbox className="search_text" checked>
+                Min: {minP}
+              </Checkbox>
             </div>
             <div className="search_opt">
-              <label> Price </label>
+              <label> Maximum Price </label>
               <hr />
-              <span className="search_text">
-                Min: {minP} ------ Max:{maxP}
-              </span>
+              <Checkbox className="search_text" checked>
+                Max:{maxP}
+              </Checkbox>
             </div>
           </div>
         </Card>

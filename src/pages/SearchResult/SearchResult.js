@@ -5,10 +5,9 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { Avatar, Card } from "antd";
-
-import "./SearchResult.scss";
 import Fliter from "./Fliter";
 import SearchBar from "../SearchBar/SearchBar";
+import "./SearchResult.scss";
 
 const SearchResult = () => {
   const { Meta } = Card;
@@ -28,7 +27,7 @@ const SearchResult = () => {
             <div className="card_result">
               <Card
                 style={{
-                  width: 200,
+                  width: 280,
                 }}
                 cover={
                   <img

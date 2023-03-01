@@ -1,16 +1,36 @@
 import { Button, Input, Radio, Select } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CarList } from "../../archive_data/CarList";
 import "./SearchBar.scss";
 import { useNavigate } from "react-router-dom";
 import { IsToken } from "./../../global_stage/action";
+import { DisplayCar } from "../../API/api";
 
 const SearchBar = () => {
   const navigate = useNavigate();
-  const [brand, setCBrand] = useState("");
+  const [brand, setCBrand] = useState("BMW");
   const [value, setValue] = useState(4);
-  const [minp, setMinP] = useState(0);
-  const [maxp, setmaxP] = useState(0);
+  const [minP, setMinP] = useState(100000);
+  const [maxP, setMaxP] = useState(500000);
+
+  const [carData, setCarData] = useState([]);
+
+  // mycar GET------------------
+
+  useEffect(() => {
+    // const ac = new AbortController();
+
+    (async () => {
+      try {
+        const display = await DisplayCar();
+        setCarData(display.data.data);
+      } catch (err) {
+        console.warn(err.message);
+      }
+    })();
+
+    // return () => ac.abort();
+  }, []);
 
   // route path checking
   const isSearchPage =
@@ -32,14 +52,14 @@ const SearchBar = () => {
     setMinP(e);
   };
   const maxPriceHandle = (e) => {
-    setmaxP(e);
+    setMaxP(e);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const searchPath = `${
       isSearchPage ? "/dashboard/search/searchresult" : "/search/searchresult"
-    }/?carModel=${brand}&sets=${value}&minPrice=${minp}&maxPrice=${maxp}`;
+    }/?carModel=${brand}&sets=${value}&minP=${minP}&maxP=${maxP}`;
 
     navigate(searchPath);
   };
@@ -56,16 +76,17 @@ const SearchBar = () => {
                   // style={{
                   //   width: 200,
                   // }}
+                  defaultValue="BMW"
                   placeholder="Select Brand"
                   optionFilterProp="children"
                   onChange={onChange}
                   name="brand"
                   id="brand"
                 >
-                  {CarList.map((item, i) => {
+                  {carData.map((item, i) => {
                     return (
-                      <Select.Option key={i} value={item.name}>
-                        {item.name}
+                      <Select.Option key={i} value={item.brandName}>
+                        {item.brandName}
                       </Select.Option>
                     );
                   })}
@@ -96,14 +117,12 @@ const SearchBar = () => {
                     onChange={(e) => minPriceHandle(e.target.value)}
                     type="number"
                     placeholder="min"
-                    require
-                  />{" "}
+                  />
                   --
                   <Input
                     onChange={(e) => maxPriceHandle(e.target.value)}
                     type="number"
                     placeholder="max"
-                    required
                   />
                 </div>
               </div>

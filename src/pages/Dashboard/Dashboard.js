@@ -20,7 +20,7 @@ import SearchResult from "../SearchResult/SearchResult";
 
 const Dashboard = () => {
   const { path, url } = useResolvedPath("").pathname;
-  console.log("path", path, url);
+  // console.log("path", path, url);
   //  useResolvedPath("").pathname # or useLocation
   const [h, setHeight] = useState(0);
   const [load, setLoad] = useState(false);
